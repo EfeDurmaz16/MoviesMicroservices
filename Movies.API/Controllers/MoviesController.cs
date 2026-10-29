@@ -20,11 +20,12 @@ namespace Movies.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(CancellationToken cancellationToken)
+        public async Task<IActionResult> Get(
+            [FromQuery] MovieQueryRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                var response = await _mediator.Send(new MovieQueryRequest(), cancellationToken);
+                var response = await _mediator.Send(request, cancellationToken);
                 var list = await response.ToListAsync(cancellationToken);
                 return Ok(list);
             }
