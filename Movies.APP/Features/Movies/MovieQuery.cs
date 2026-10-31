@@ -3,7 +3,6 @@ using CORE.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 using Movies.APP.Domain;
 
 namespace Movies.APP.Features.Movies
@@ -42,8 +41,8 @@ namespace Movies.APP.Features.Movies
 
             if (!string.IsNullOrWhiteSpace(request.Name))
             {
-                var namePattern = "(?i)" + Regex.Escape(request.Name.Trim());
-                query = query.Where(m => Regex.IsMatch(m.Name, namePattern));
+                var name = request.Name.Trim().ToLower();
+                query = query.Where(m => m.Name.ToLower().Contains(name));
             }
 
             if (request.ReleaseYear.HasValue)
