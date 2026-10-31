@@ -209,6 +209,19 @@ var app = builder.Build();
 
 
 // --------------------------
+// Database migrations
+// --------------------------
+// Apply pending EF Core migrations at startup so the database
+// is created/updated automatically when the application runs.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DbContext>();
+    db.Database.Migrate();
+}
+
+
+
+// --------------------------
 // Authentication and Swagger
 // --------------------------
 // Configure the HTTP request pipeline.
