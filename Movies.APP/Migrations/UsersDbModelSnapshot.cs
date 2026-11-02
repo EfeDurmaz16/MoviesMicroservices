@@ -17,6 +17,21 @@ namespace Movies.APP.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.29");
 
+            modelBuilder.Entity("Movies.APP.Domain.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+                });
+
             modelBuilder.Entity("Movies.APP.Domain.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -39,6 +54,21 @@ namespace Movies.APP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("Movies.APP.Domain.MovieGenre", b =>
+                {
+                    b.Property<int>("MovieId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("MovieId", "GenreId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("MovieGenres");
                 });
 
             modelBuilder.Entity("Movies.APP.Domain.Role", b =>
@@ -149,6 +179,25 @@ namespace Movies.APP.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("Movies.APP.Domain.MovieGenre", b =>
+                {
+                    b.HasOne("Movies.APP.Domain.Genre", "Genre")
+                        .WithMany("MovieGenres")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Movies.APP.Domain.Movie", "Movie")
+                        .WithMany("MovieGenres")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("Movies.APP.Domain.User", b =>
                 {
                     b.HasOne("Movies.APP.Domain.Status", "Status")
@@ -177,6 +226,16 @@ namespace Movies.APP.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Movies.APP.Domain.Genre", b =>
+                {
+                    b.Navigation("MovieGenres");
+                });
+
+            modelBuilder.Entity("Movies.APP.Domain.Movie", b =>
+                {
+                    b.Navigation("MovieGenres");
                 });
 
             modelBuilder.Entity("Movies.APP.Domain.Role", b =>

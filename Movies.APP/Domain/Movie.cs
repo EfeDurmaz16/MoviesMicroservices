@@ -10,4 +10,6 @@ public class Movie : Record
     public DateTime? ReleaseDate { get; set; }
     public decimal TotalRevenue { get; set; }
     public int DirectorId { get; set; }
+
+    public List<MovieGenre> MovieGenres { get; set; } = new();
 }
