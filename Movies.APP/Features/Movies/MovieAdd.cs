@@ -26,9 +26,11 @@ namespace Movies.APP.Features.Movies
     public class MovieAddHandler : DbService<Movie>,
         IRequestHandler<MovieAddRequest, CommandResponse>
     {
+        private readonly DbContext _db;
+
         public MovieAddHandler(DbContext db) : base(db)
         {
-
+            _db = db;
         }
 
         public async Task<CommandResponse> Handle(
@@ -36,6 +38,10 @@ namespace Movies.APP.Features.Movies
         {
             if ((request.TotalRevenue ?? 0) < 0)
                 return Error("TotalRevenue cannot be negative.");
+
+            if (!await _db.Set<Director>().AnyAsync(d =>
+                d.Id == request.DirectorId.Value, cancellationToken))
+                return Error("Director not found!");
 
             if (await DbQuery().AnyAsync(m =>
                 m.Name == request.Name.Trim(), cancellationToken

@@ -21,6 +21,9 @@ namespace Movies.APP.Domain
         // Represents the Movies table in the database.
         public DbSet<Movie> Movies { get; set; }
 
+        // Represents the Directors table in the database.
+        public DbSet<Director> Directors { get; set; }
+
         // Represents the Genres table in the database.
         public DbSet<Genre> Genres { get; set; }
 
@@ -32,6 +35,12 @@ namespace Movies.APP.Domain
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Movie>()
+                .HasOne(movie => movie.Director)
+                .WithMany(director => director.Movies)
+                .HasForeignKey(movie => movie.DirectorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<MovieGenre>(entity =>
             {
