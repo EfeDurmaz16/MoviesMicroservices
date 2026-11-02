@@ -2,6 +2,7 @@ using CORE.Domain;
 using CORE.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 using Movies.APP.Domain;
 using Movies.APP.Features.Movies;
 
@@ -38,8 +39,8 @@ namespace Movies.APP.Features.Directors
 
             if (!string.IsNullOrWhiteSpace(request.LastName))
             {
-                var lastName = request.LastName.Trim().ToLower();
-                query = query.Where(d => d.LastName.ToLower().Contains(lastName));
+                var lastNamePattern = "(?i)" + Regex.Escape(request.LastName.Trim());
+                query = query.Where(d => Regex.IsMatch(d.LastName, lastNamePattern));
             }
 
             if (request.IsRetired.HasValue)
