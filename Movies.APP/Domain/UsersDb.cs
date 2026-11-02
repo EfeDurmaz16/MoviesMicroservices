@@ -18,6 +18,9 @@ namespace Movies.APP.Domain
         // Represents the Statuses table in the database.
         public DbSet<Status> Statuses { get; set; }
 
+        // Represents the Movies table in the database.
+        public DbSet<Movie> Movies { get; set; }
+
         // Constructor that takes options of type DbContextOptions
         // parameter and passes it to the base DbContext class constructor.
         // The options parameter is used to configure the database
