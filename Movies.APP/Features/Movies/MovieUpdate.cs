@@ -26,8 +26,11 @@ namespace Movies.APP.Features.Movies
     public class MovieUpdateHandler : DbService<Movie>,
         IRequestHandler<MovieUpdateRequest, CommandResponse>
     {
+        private readonly DbContext _db;
+
         public MovieUpdateHandler(DbContext db) : base(db)
         {
+            _db = db;
         }
 
         public async Task<CommandResponse> Handle(
@@ -43,6 +46,10 @@ namespace Movies.APP.Features.Movies
             var movieEntity = await DbSingleAsync(request.Id, cancellationToken);
             if (movieEntity is null)
                 return Error("Movie not found!");
+
+            if (!await _db.Set<Director>().AnyAsync(d =>
+                d.Id == request.DirectorId.Value, cancellationToken))
+                return Error("Director not found!");
 
             movieEntity.Name = request.Name.Trim();
             movieEntity.ReleaseDate = request.ReleaseDate;

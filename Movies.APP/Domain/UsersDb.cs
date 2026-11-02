@@ -36,6 +36,12 @@ namespace Movies.APP.Domain
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Movie>()
+                .HasOne(movie => movie.Director)
+                .WithMany(director => director.Movies)
+                .HasForeignKey(movie => movie.DirectorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<MovieGenre>(entity =>
             {
                 entity.HasKey(movieGenre =>

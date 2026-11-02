@@ -17,6 +17,30 @@ namespace Movies.APP.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.29");
 
+            modelBuilder.Entity("Movies.APP.Domain.Director", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsRetired")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Directors");
+                });
+
             modelBuilder.Entity("Movies.APP.Domain.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -52,6 +76,8 @@ namespace Movies.APP.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DirectorId");
 
                     b.ToTable("Movies");
                 });
@@ -179,6 +205,17 @@ namespace Movies.APP.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("Movies.APP.Domain.Movie", b =>
+                {
+                    b.HasOne("Movies.APP.Domain.Director", "Director")
+                        .WithMany("Movies")
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Director");
+                });
+
             modelBuilder.Entity("Movies.APP.Domain.MovieGenre", b =>
                 {
                     b.HasOne("Movies.APP.Domain.Genre", "Genre")
@@ -226,6 +263,11 @@ namespace Movies.APP.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Movies.APP.Domain.Director", b =>
+                {
+                    b.Navigation("Movies");
                 });
 
             modelBuilder.Entity("Movies.APP.Domain.Genre", b =>
