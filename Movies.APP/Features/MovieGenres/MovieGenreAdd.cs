@@ -54,15 +54,7 @@ namespace Movies.APP.Features.MovieGenres
                 GenreId = genreId
             };
 
-            try
-            {
-                await DbAddAsync(movieGenreEntity, cancellationToken);
-            }
-            catch (DbUpdateException)
-            {
-                // A concurrent request may have inserted the same pair.
-                return Error("MovieGenre already exists!");
-            }
+            await DbAddAsync(movieGenreEntity, cancellationToken);
 
             return Success(0, "MovieGenre created successfully.");
         }

@@ -70,18 +70,9 @@ namespace Movies.APP.Features.MovieGenres
                 GenreId = genreId
             };
 
-            try
-            {
-                // Remove the old pair and add the new pair in one
-                // SaveChanges call so the composite-key change is atomic.
-                await DbRemoveAsync(oldMovieGenreEntity,
-                    cancellationToken, save: false);
-                await DbAddAsync(newMovieGenreEntity, cancellationToken);
-            }
-            catch (DbUpdateException)
-            {
-                return Error("MovieGenre already exists!");
-            }
+            await DbRemoveAsync(oldMovieGenreEntity,
+                cancellationToken, save: false);
+            await DbAddAsync(newMovieGenreEntity, cancellationToken);
 
             return Success(0, "MovieGenre updated successfully.");
         }
