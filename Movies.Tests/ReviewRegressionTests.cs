@@ -13,13 +13,13 @@ namespace Movies.Tests
     public class ReviewRegressionTests : IDisposable
     {
         private readonly SqliteConnection _connection;
-        private readonly UsersDb _db;
+        private readonly MoviesDb _db;
 
         public ReviewRegressionTests()
         {
             _connection = new SqliteConnection("Data Source=:memory:");
             _connection.Open();
-            _db = new UsersDb(new DbContextOptionsBuilder<UsersDb>()
+            _db = new MoviesDb(new DbContextOptionsBuilder<MoviesDb>()
                 .UseSqlite(_connection).Options);
             _db.Database.Migrate();
         }
@@ -157,7 +157,7 @@ namespace Movies.Tests
             await _db.SaveChangesAsync();
             _db.ChangeTracker.Clear();
             using var raceDb = new DeleteGenreBeforeSaveDb(
-                new DbContextOptionsBuilder<UsersDb>().UseSqlite(_connection).Options)
+                new DbContextOptionsBuilder<MoviesDb>().UseSqlite(_connection).Options)
             {
                 GenreToDelete = targetGenre.Id
             };
@@ -182,7 +182,7 @@ namespace Movies.Tests
             Assert.Equal(originalGenre.Id, link.GenreId);
         }
 
-        private sealed class DeleteGenreBeforeSaveDb : UsersDb
+        private sealed class DeleteGenreBeforeSaveDb : MoviesDb
         {
             public int GenreToDelete { get; set; }
 
