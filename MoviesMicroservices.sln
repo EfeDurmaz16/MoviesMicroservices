@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37516.0
@@ -8,8 +8,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CORE", "CORE\CORE.csproj", "{D3F8C7DB-B6C8-4AF7-B4D5-BF31986BD045}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.APP", "Movies.APP\Movies.APP.csproj", "{B2436523-4487-4CA6-9318-31B5B7943597}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.API", "Gateway.API\Gateway.API.csproj", "{55C41645-F257-4F5F-9817-6129F565751A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
@@ -36,10 +34,6 @@ Global
 		{B2436523-4487-4CA6-9318-31B5B7943597}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2436523-4487-4CA6-9318-31B5B7943597}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2436523-4487-4CA6-9318-31B5B7943597}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55C41645-F257-4F5F-9817-6129F565751A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55C41645-F257-4F5F-9817-6129F565751A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55C41645-F257-4F5F-9817-6129F565751A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55C41645-F257-4F5F-9817-6129F565751A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66EE34BD-C0AB-4D70-A7A7-D6A284CB72DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66EE34BD-C0AB-4D70-A7A7-D6A284CB72DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66EE34BD-C0AB-4D70-A7A7-D6A284CB72DE}.Release|Any CPU.ActiveCfg = Release|Any CPU

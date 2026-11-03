@@ -15,7 +15,7 @@ namespace Movies.Tests
     public class DirectorsTests : IDisposable
     {
         private readonly SqliteConnection _connection;
-        private readonly UsersDb _db;
+        private readonly MoviesDb _db;
         private readonly IMediator _mediator;
 
         public DirectorsTests()
@@ -23,10 +23,10 @@ namespace Movies.Tests
             _connection = new SqliteConnection("Data Source=:memory:");
             _connection.Open();
 
-            var options = new DbContextOptionsBuilder<UsersDb>()
+            var options = new DbContextOptionsBuilder<MoviesDb>()
                 .UseSqlite(_connection)
                 .Options;
-            _db = new UsersDb(options);
+            _db = new MoviesDb(options);
             _db.Database.EnsureCreated();
 
             var services = new ServiceCollection();

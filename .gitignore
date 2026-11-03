@@ -361,3 +361,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Local IDE state and SQLite databases
+.DS_Store
+.idea/
+*.db
+*.db-shm
+*.db-wal
