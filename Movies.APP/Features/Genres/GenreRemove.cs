@@ -35,8 +35,7 @@ namespace Movies.APP.Features.Genres
             if (genreEntity is null)
                 return Error("Genre not found!");
 
-            if (genreEntity.MovieGenres.Any())
-                return Error("Genre has related movies!");
+            DbRemove(genreEntity.MovieGenres);
 
             await DbRemoveAsync(
                 genreEntity,
