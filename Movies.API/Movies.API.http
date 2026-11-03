@@ -1,0 +1,58 @@
+@baseUrl = http://localhost:5223
+@directorId = 1
+@genreId = 1
+@movieId = 1
+
+### Create a director
+POST {{baseUrl}}/api/directors
+Content-Type: application/json
+
+{"firstName":"Christopher","lastName":"Nolan","isRetired":false}
+
+### Create a genre
+POST {{baseUrl}}/api/genres
+Content-Type: application/json
+
+{"name":"Science Fiction"}
+
+### Create a movie (use the returned director ID)
+POST {{baseUrl}}/api/movies
+Content-Type: application/json
+
+{"name":"Inception","releaseDate":"2010-07-16T00:00:00","totalRevenue":825500000,"directorId":{{directorId}}}
+
+### Link the movie and genre
+POST {{baseUrl}}/api/movie-genres
+Content-Type: application/json
+
+{"movieId":{{movieId}},"genreId":{{genreId}}}
+
+### Movie filters
+GET {{baseUrl}}/api/movies?name=inception&releaseYear=2010
+
+### Director filters
+GET {{baseUrl}}/api/directors?lastName=nolan&isRetired=false
+
+### Genre filter
+GET {{baseUrl}}/api/genres?name=science
+
+### Movies in a genre
+GET {{baseUrl}}/api/genres/{{genreId}}/movies
+
+### Movies by a director
+GET {{baseUrl}}/api/directors/{{directorId}}/movies
+
+### Relationship filters
+GET {{baseUrl}}/api/movie-genres?movieId={{movieId}}&genreId={{genreId}}
+
+### A referenced director cannot be deleted (409)
+DELETE {{baseUrl}}/api/directors/{{directorId}}
+
+### Delete a linked genre (movie survives)
+DELETE {{baseUrl}}/api/genres/{{genreId}}
+
+### Delete the movie
+DELETE {{baseUrl}}/api/movies/{{movieId}}
+
+### The unreferenced director can now be deleted
+DELETE {{baseUrl}}/api/directors/{{directorId}}
